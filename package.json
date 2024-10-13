@@ -1,0 +1,37 @@
+{
+  "name": "putaopay",
+  "version": "1.0.0",
+  "description": "Payment made as easy as plucking a grape 🍇",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinmoemyintmyat/putaopay.git"
+  },
+  "keywords": [
+    "putao",
+    "pay",
+    "putaopay",
+    "grape",
+    "payment",
+    "paypal",
+    "braintrees"
+  ],
+  "author": "m3yevn/kevinmoemyintmyat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kevinmoemyintmyat/putaopay/issues"
+  },
+  "homepage": "https://github.com/kevinmoemyintmyat/putaopay#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

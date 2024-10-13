@@ -1,0 +1,123 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="keywords"
+      content="Putaopay, Putao, Payment,Kevin Moe Myint Myat, m3yevn, Kevin Moe, Kevn Moe Myint Myat, Kevn Moe, Kevin Moe Myint, Moe Myint Myat"
+    />
+    <meta name="author" content="Kevin Moe Myint Myat" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Payment made as easy as plucking a grape 🍇"
+    />
+    <link rel="stylesheet" href="./packages/flat-icon.min.css" />
+    <link href="./packages/flat-icon.min.css" rel="stylesheet" />
+    <title>PutaoPay - Payment made as easy as plucking a grape 🍇</title>
+  </head>
+  <body>
+    <div v-scope="Form()"></div>
+  </body>
+  <template id="form-template">
+    <section
+      class="container d-flex justify-content-center align-items-center h-100"
+    >
+      <form class="card">
+        <h1>Putao<span>Pay</span>🍇</h1>
+        <div class="mb-3">
+          <label for="floatingInput">Price (amount)</label>
+          <div class="input-group">
+            <input class="form-control" id="floatingInput" placeholder="100" />
+            <span class="input-group-text" id="price-currency"
+              ><span :class="'fi fi-'+ store.formCurrency.code"></span>&nbsp;{{
+              store.formCurrency.value }}
+            </span>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="floatingInput">Currency</label>
+          <select
+            class="form-select"
+            @change="store.handleCurrencyChange($event)"
+          >
+            <option
+              v-for="currency in store.currencies"
+              :value="currency.value"
+            >
+              {{ currency.value}}
+            </option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="floatingInput">Full Name</label>
+          <input
+            class="form-control"
+            id="floatingInput"
+            placeholder="John Doe"
+          />
+        </div>
+        <div class="separator">
+          <h6>Payment Details</h6>
+        </div>
+        <div class="mb-3">
+          <label for="floatingInput">Card Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="floatingInput"
+            placeholder="1234 1234 1234 1234"
+          />
+        </div>
+      </form>
+    </section>
+  </template>
+  <script type="module" src="index.js"></script>
+  <style>
+    body {
+      background-color: whitesmoke;
+    }
+
+    form {
+      padding: 32px;
+      border-radius: 12p;
+    }
+
+    h1 {
+      font-size: 50px;
+      font-weight: 600;
+      color: violet;
+      text-transform: uppercase;
+    }
+
+    h1 span {
+      color: black;
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    .separator {
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+
+    .separator::before,
+    .separator::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #d8d8d8;
+    }
+
+    .separator:not(:empty)::before {
+      margin-right: 0.25em;
+    }
+
+    .separator:not(:empty)::after {
+      margin-left: 0.25em;
+    }
+  </style>
+</html>
