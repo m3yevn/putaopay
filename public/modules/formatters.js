@@ -40,7 +40,7 @@ export function formatCardNumber(value) {
     typeCheck = parseInt(typeCheck);
     if (typeCheck >= 40 && typeCheck <= 49) {
       cType = "VISA";
-    } else if (typeCheck >= 51 && typeCheck <= 55) {
+    } else if (typeCheck >= 51 && typeCheck <= 55 || typeCheck == 22) {
       cType = "MASTER";
     } else if (typeCheck == 34 || typeCheck == 37) {
       cType = "AMEX";

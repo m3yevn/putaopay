@@ -28,6 +28,7 @@ export const paymentFormatValidator = (req, res, next) => {
       message: lengthOfType.message,
     };
   }
+  req.body.cardNumber = parseInt(cleanCardNumber);
   next();
 };
 

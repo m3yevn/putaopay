@@ -20,7 +20,7 @@ export default {
         this.store.toast = {
           header: "Result",
           info: new Date().toLocaleTimeString(),
-          body: response.message,
+          body: "Sending payment is successful.",
         };
         this.$refs.toastRef.classList.add("text-bg-success");
         this.$refs.toastRef.classList.remove("text-bg-danger");
@@ -34,6 +34,9 @@ export default {
         this.$refs.toastRef.classList.remove("text-bg-success");
       }
       this.$refs.toastRef.classList.add("show");
+      setTimeout(() => {
+        this.handleCloseToast();
+      }, 3000);
     } catch (ex) {
       console.error(ex);
     } finally {

@@ -9,18 +9,18 @@ class CorePaymentService {
   getPaymentService(currency, type) {
     if (type === "AMEX" || PAYPAL_CURRENCIES.includes(currency)) {
       console.log("Using Paypal service for transaction.");
-      return paypalService.createOrder;
+      return paypalService.createOrder.bind(paypalService);
     }
     console.log("Using Braintree service for transaction.");
-    return braintreeService.createTransaction;
+    return braintreeService.createTransaction.bind(braintreeService);
   }
 
-  async makePayment({ name, price, creditCard }) {
-    const { cardType, currency } = creditCard;
+  async makePayment({ name, price, currency, creditCard }) {
+    const { cardType } = creditCard;
     amexValidator(currency, cardType);
     const serviceHandler = this.getPaymentService(currency, cardType);
-    await serviceHandler(price, creditCard);
-    return "";
+    const result = await serviceHandler(price, currency, creditCard);
+    return result;
   }
 }
 

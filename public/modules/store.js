@@ -92,6 +92,12 @@ export const initialStore = {
     );
     return currencyObj;
   },
+  handleCardCVVPaste(event) {
+    event.preventDefault();
+    const clipboard = event.clipboardData;
+    const text = clipboard.getData("Text");
+    this.form.cardCVV = text;
+  },
   handleCardCVVChange(event) {
     const isNumber = checkDigit(event);
     if (!isNumber) {
@@ -110,6 +116,14 @@ export const initialStore = {
       this.form.cardExpiry = formatted;
     }
   },
+  handleCardNumberPaste(event) {
+    event.preventDefault();
+    const clipboard = event.clipboardData;
+    const text = clipboard.getData("Text");
+    const { formatted, type } = formatCardNumber(text);
+    this.form.cardNumber = formatted;
+    this.form.cardType = type;
+  },
   handleCardNumberChange(event) {
     const isNumber = checkDigit(event);
     if (!isNumber) {
@@ -121,6 +135,7 @@ export const initialStore = {
       } else {
         const { formatted, type } = formatCardNumber(value);
         this.form.cardNumber = formatted;
+        event.target.value = formatted;
         this.form.cardType = type;
       }
       if (value.length < 2) {
@@ -130,7 +145,7 @@ export const initialStore = {
   },
   handleCurrencyChange(event) {
     this.form.currency = event.target.value;
-  }
+  },
 };
 
 export function checkDigit(event) {
