@@ -6,8 +6,8 @@ routes.get("/healthcheck", (req, res) => {
   res.json({ success: true, message: "API is healthy" });
 });
 
-routes.post("/pay", (req, res) => {
-  res.json({ success: true, message: "API is healthy" });
+routes.post("/payment", (req, res) => {
+  
 });
 
 module.exports = {

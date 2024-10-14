@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/kevinmoemyintmyat/putaopay#readme",
   "dependencies": {
+    "body-parser": "^1.20.3",
     "dotenv": "^16.4.5",
     "express": "^4.21.1"
   },
