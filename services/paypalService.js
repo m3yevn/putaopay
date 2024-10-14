@@ -26,7 +26,9 @@ class PaypalService {
     }
   }
 
-  async createOrder() {}
+  async createOrder() {
+    console.debug("Start to trigger the Paypal API.");
+  }
 }
 
 module.exports = new PaypalService();

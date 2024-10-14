@@ -16,7 +16,9 @@ class BraintreeService {
     }
   }
 
-  async createTransaction() {}
+  async createTransaction() {
+    console.debug("Start to trigger the Braintree Gateway.");
+  }
 }
 
 module.exports = new BraintreeService();

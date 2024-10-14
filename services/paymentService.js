@@ -1,8 +1,7 @@
+const { PAYPAL_CURRENCIES } = require("../constants");
 const { amexValidator } = require("../helpers/validators");
 const braintreeService = require("./braintreeService");
 const paypalService = require("./paypalService");
-
-const PAYPAL_CURRENCIES = ["USD", "EUR", "AUD"];
 
 class CorePaymentService {
   constructor(props) {}
@@ -20,7 +19,7 @@ class CorePaymentService {
     const { cardType, currency } = creditCard;
     amexValidator(currency, cardType);
     const serviceHandler = this.getPaymentService(currency, cardType);
-    await serviceHandler(creditCard);
+    await serviceHandler(price, creditCard);
     return "";
   }
 }

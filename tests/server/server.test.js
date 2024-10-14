@@ -6,6 +6,7 @@ describe("GET / and GET /api/healthcheck", () => {
   let httpServer;
   let app;
   console.log = jest.fn();
+  console.error = jest.fn();
 
   beforeAll(() => {
     configDotenv();

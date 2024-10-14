@@ -1,28 +1,4 @@
-const REQUIRED_FIELDS_PAYMENT = [
-  "name",
-  "price",
-  "currency",
-  "cardHolder",
-  "cardNumber",
-  "cardType",
-  "cardExpiry",
-  "cardCVV",
-];
-
-const CARD_TYPE_LENGTH = {
-  AMEX: {
-    length: 15,
-    message: "AMEX card should be 15 numbers",
-  },
-  MASTER: {
-    length: 16,
-    message: "MASTER card should be 16 numbers",
-  },
-  VISA: {
-    length: 16,
-    message: "VISA card should be 16 numbers",
-  },
-};
+const { REQUIRED_FIELDS_PAYMENT, CARD_TYPE_LENGTH } = require("../constants");
 
 const paymentParamsValidator = (req, res, next) => {
   const missingFields = REQUIRED_FIELDS_PAYMENT.filter(
@@ -65,5 +41,4 @@ module.exports = {
   paymentParamsValidator,
   amexValidator,
   paymentFormatValidator,
-  CARD_TYPE_LENGTH,
 };

@@ -1,7 +1,20 @@
 const request = require("supertest");
 const { startServer } = require("../../server");
 const { configDotenv } = require("dotenv");
-const { CARD_TYPE_LENGTH } = require("../../helpers/validators");
+const { CARD_TYPE_LENGTH } = require("../../constants");
+const paypalService = require("../../services/paypalService");
+const braintreeService = require("../../services/braintreeService");
+
+const validAmexPayload = {
+  name: "Kevin",
+  price: "1",
+  currency: "USD",
+  cardType: "AMEX",
+  cardHolder: "Moe Myint Myat",
+  cardNumber: 222300004840001,
+  cardExpiry: "11 / 26",
+  cardCVV: 552,
+};
 
 const invalidAmexPayload = {
   name: "Kevin",
@@ -25,10 +38,24 @@ const invalidCardNumberLengthPayload = {
   cardCVV: 552,
 };
 
+const nonPaypalPayload = {
+  name: "Kevin",
+  price: "1",
+  currency: "THB",
+  cardType: "VISA",
+  cardHolder: "Moe Myint Myat",
+  cardNumber: 2223000048400011,
+  cardExpiry: "11 / 26",
+  cardCVV: 552,
+};
+
 describe("GET / and GET /api/healthcheck", () => {
   let httpServer;
   let app;
   console.log = jest.fn();
+  console.error = jest.fn();
+  jest.spyOn(paypalService, "createOrder").mockReturnValue("");
+  jest.spyOn(braintreeService, "createTransaction").mockReturnValue("");
 
   beforeAll(() => {
     configDotenv();
@@ -72,5 +99,21 @@ describe("GET / and GET /api/healthcheck", () => {
         error: "NOT ACCEPTABLE",
         message: `Unable to use AMEX card with non-USD currency.`,
       });
+  });
+
+  it("should select Paypal service for AMEX card type", async () => {
+    await request(app).post("/api/payment").send(validAmexPayload);
+    const mockCalls = console.log.mock.calls;
+    expect(
+      mockCalls.slice(mockCalls.length - 1, mockCalls.length)[0]
+    ).toContain("Using Paypal service for transaction.");
+  });
+
+  it("should select Braintree service for non-AMEX and non-Paypal currencies", async () => {
+    await request(app).post("/api/payment").send(nonPaypalPayload);
+    const mockCalls = console.log.mock.calls;
+    expect(
+      mockCalls.slice(mockCalls.length - 1, mockCalls.length)[0]
+    ).toContain("Using Braintree service for transaction.");
   });
 });
