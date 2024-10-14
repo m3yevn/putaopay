@@ -1,4 +1,4 @@
-const paymentService = require("../services/paymentService");
+import paymentService from "../services/paymentService.js";
 
 const postPayment = async (req, res) => {
   try {
@@ -12,16 +12,14 @@ const postPayment = async (req, res) => {
     res.json({ success: true, result });
   } catch (ex) {
     console.error(ex);
-    res
-      .status(ex?.status || 500)
-      .json({
-        success: false,
-        error: ex?.title || "SERVER ERROR",
-        message: ex.message,
-      });
+    res.status(ex?.status || 500).json({
+      success: false,
+      error: ex?.title || "SERVER ERROR",
+      message: ex.message,
+    });
   }
 };
 
-module.exports = {
+export default {
   postPayment,
 };

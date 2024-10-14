@@ -1,5 +1,5 @@
-const { configDotenv } = require("dotenv");
-const { startServer } = require("./server");
+import { configDotenv } from "dotenv";
+import { startServer } from "./server.js";
 configDotenv();
 
 const port = process.env.PORT || 3000;

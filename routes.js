@@ -1,11 +1,11 @@
-const { Router } = require("express");
-const paymentController = require("./controller/paymentController");
-const {
+import { Router } from "express";
+import paymentController from "./controller/paymentController.js";
+import {
   paymentParamsValidator,
   paymentFormatValidator,
-} = require("./helpers/validators");
+} from "./helpers/validators.js";
 
-const routes = Router();
+export const routes = Router();
 
 routes.get("/healthcheck", (req, res) => {
   res.json({ success: true, message: "API is healthy" });
@@ -17,7 +17,3 @@ routes.post(
   paymentFormatValidator,
   paymentController.postPayment
 );
-
-module.exports = {
-  routes,
-};

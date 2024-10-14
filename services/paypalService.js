@@ -31,4 +31,4 @@ class PaypalService {
   }
 }
 
-module.exports = new PaypalService();
+export default new PaypalService();

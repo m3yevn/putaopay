@@ -1,4 +1,4 @@
-const { ServerApiVersion, MongoClient } = require("mongodb");
+import { ServerApiVersion, MongoClient } from "mongodb";
 
 class DatabaseService {
   constructor(props) {}
@@ -20,4 +20,4 @@ class DatabaseService {
   }
 }
 
-module.exports = new DatabaseService();
+export default new DatabaseService();

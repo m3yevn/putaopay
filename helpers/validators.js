@@ -1,6 +1,6 @@
-const { REQUIRED_FIELDS_PAYMENT, CARD_TYPE_LENGTH } = require("../constants");
+import { REQUIRED_FIELDS_PAYMENT, CARD_TYPE_LENGTH } from "../constants/index.js";
 
-const paymentParamsValidator = (req, res, next) => {
+export const paymentParamsValidator = (req, res, next) => {
   const missingFields = REQUIRED_FIELDS_PAYMENT.filter(
     (field) => !Object.keys(req.body).includes(field)
   );
@@ -14,7 +14,7 @@ const paymentParamsValidator = (req, res, next) => {
   next();
 };
 
-const paymentFormatValidator = (req, res, next) => {
+export const paymentFormatValidator = (req, res, next) => {
   const { cardType, cardNumber } = req.body;
   const lengthOfType = CARD_TYPE_LENGTH[cardType];
   if (cardNumber.toString().length !== lengthOfType.length) {
@@ -27,7 +27,7 @@ const paymentFormatValidator = (req, res, next) => {
   next();
 };
 
-const amexValidator = (currency, type) => {
+export const amexValidator = (currency, type) => {
   if (currency !== "USD" && type === "AMEX") {
     throw {
       status: 406,
@@ -35,10 +35,4 @@ const amexValidator = (currency, type) => {
       message: `Unable to use AMEX card with non-USD currency.`,
     };
   }
-};
-
-module.exports = {
-  paymentParamsValidator,
-  amexValidator,
-  paymentFormatValidator,
 };

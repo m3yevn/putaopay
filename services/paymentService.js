@@ -1,7 +1,7 @@
-const { PAYPAL_CURRENCIES } = require("../constants");
-const { amexValidator } = require("../helpers/validators");
-const braintreeService = require("./braintreeService");
-const paypalService = require("./paypalService");
+import { PAYPAL_CURRENCIES } from "../constants/index.js";
+import { amexValidator } from "../helpers/validators.js";
+import braintreeService from "./braintreeService.js";
+import paypalService from "./paypalService.js";
 
 class CorePaymentService {
   constructor(props) {}
@@ -24,4 +24,4 @@ class CorePaymentService {
   }
 }
 
-module.exports = new CorePaymentService();
+export default new CorePaymentService();

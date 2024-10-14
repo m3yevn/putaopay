@@ -1,4 +1,4 @@
-const REQUIRED_FIELDS_PAYMENT = [
+export const REQUIRED_FIELDS_PAYMENT = [
   "name",
   "price",
   "currency",
@@ -9,7 +9,7 @@ const REQUIRED_FIELDS_PAYMENT = [
   "cardCVV",
 ];
 
-const CARD_TYPE_LENGTH = {
+export const CARD_TYPE_LENGTH = {
   AMEX: {
     length: 15,
     message: "AMEX card should be 15 numbers",
@@ -24,10 +24,4 @@ const CARD_TYPE_LENGTH = {
   },
 };
 
-const PAYPAL_CURRENCIES = ["USD", "EUR", "AUD"];
-
-module.exports = {
-  REQUIRED_FIELDS_PAYMENT,
-  CARD_TYPE_LENGTH,
-  PAYPAL_CURRENCIES,
-};
+export const PAYPAL_CURRENCIES = ["USD", "EUR", "AUD"];

@@ -1,4 +1,4 @@
-const braintree = require("braintree");
+import braintree from "braintree";
 
 class BraintreeService {
   constructor(props) {}
@@ -21,4 +21,4 @@ class BraintreeService {
   }
 }
 
-module.exports = new BraintreeService();
+export default new BraintreeService();
