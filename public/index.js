@@ -28,7 +28,7 @@ const CURRENCIES = [
   },
 ];
 
-const store = reactive({
+export const store = reactive({
   currencies: CURRENCIES,
   cardTypes: CARD_TYPES,
   isLoading: false,
@@ -141,7 +141,7 @@ const store = reactive({
   },
 });
 
-function Form(props) {
+export function Form(props) {
   return {
     $template: "#form-template",
     store,
@@ -176,7 +176,7 @@ function Form(props) {
   };
 }
 
-function checkDigit(event) {
+export function checkDigit(event) {
   const code = event.which ? event.which : event.keyCode;
   if (event.ctrlKey) {
     return true;
@@ -191,7 +191,7 @@ function checkDigit(event) {
   return true;
 }
 
-function formatExpiryDate(value) {
+export function formatExpiryDate(value) {
   return value
     .replace(
       /[^0-9]/g,
@@ -215,7 +215,7 @@ function formatExpiryDate(value) {
     );
 }
 
-function formatCardNumber(value) {
+export function formatCardNumber(value) {
   const ccNumString = value.replace(/[^0-9]/g, "");
   // mc, starts with - 51 to 55
   // v, starts with - 4
