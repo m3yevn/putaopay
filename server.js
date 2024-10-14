@@ -12,10 +12,14 @@ export function startServer({ port }) {
     paypalService.createConfig();
     braintreeService.createGateway();
 
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
     app.use("/", express.static("public"));
-    app.use("/helpers", express.static("helpers"));
+    app.use("/api", bodyParser.json());
+    app.use(
+      "/api",
+      bodyParser.urlencoded({
+        extended: false,
+      })
+    );
     app.use("/api", routes);
     app.use((err, req, res, next) => {
       console.error(err);

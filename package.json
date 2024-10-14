@@ -7,7 +7,7 @@
     "dev": "nodemon main.js",
     "start": "node main.js",
     "test-client": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch --runInBand tests/client/*",
-    "test-server": "jest --watch --runInBand tests/server/*"
+    "test-server": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch --runInBand tests/server/*"
   },
   "repository": {
     "type": "git",

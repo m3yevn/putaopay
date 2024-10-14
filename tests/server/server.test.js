@@ -1,6 +1,7 @@
-const request = require("supertest");
-const { startServer } = require("../../server");
-const { configDotenv } = require("dotenv");
+import request from "supertest";
+import { startServer } from "../../server.js";
+import { configDotenv } from "dotenv";
+import { jest } from "@jest/globals";
 
 describe("GET / and GET /api/healthcheck", () => {
   let httpServer;
@@ -21,7 +22,11 @@ describe("GET / and GET /api/healthcheck", () => {
   });
 
   it("should establish services successfully", async () => {
-    expect(console.log.mock.calls[0]).toStrictEqual(["Database connection is established."], ["Paypal API configs are established."], ["Braintree Gateway is established."]);
+    expect(console.log.mock.calls[0]).toStrictEqual(
+      ["Database connection is established."],
+      ["Paypal API configs are established."],
+      ["Braintree Gateway is established."]
+    );
   });
 
   it("should serve the HTML page in public", async () => {

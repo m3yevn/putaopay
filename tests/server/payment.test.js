@@ -1,9 +1,10 @@
-const request = require("supertest");
-const { startServer } = require("../../server");
-const { configDotenv } = require("dotenv");
-const { CARD_TYPE_LENGTH } = require("../../constants");
-const paypalService = require("../../services/paypalService");
-const braintreeService = require("../../services/braintreeService");
+import request from "supertest";
+import { startServer } from "../../server.js";
+import { configDotenv } from "dotenv";
+import { CARD_TYPE_LENGTH } from "../../constants";
+import paypalService from "../../services/paypalService.js";
+import braintreeService from "../../services/braintreeService.js";
+import { jest } from "@jest/globals";
 
 const validAmexPayload = {
   name: "Kevin",

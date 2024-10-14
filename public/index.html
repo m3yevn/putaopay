@@ -108,11 +108,14 @@
               @keydown="store.handleCardNumberChange($event)"
               required
             />
-            <span class="input-group-text" id="card-type" v-if="store.form.cardType === '' || store.form.cardType === 'Invalid'">
+            <span class="input-group-text" id="card-type" v-if="store.form.cardType === ''">
               <span
                 :class="'ico ico-'+ type"
                 v-for="type in store.cardTypes"
               ></span>
+            </span>
+            <span class="input-group-text text-danger" id="card-type" v-else-if="store.form.cardType === 'Invalid'">
+              Invalid Card
             </span>
             <span class="input-group-text" id="card-type" v-else>
                 <span
@@ -178,7 +181,7 @@
           <div class="toast-header">
             <strong class="me-auto">{{ store.toast.header }}</strong>
             <small>{{ store.toast.info }}</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" @click="store.handleCloseToast"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" @click="handleCloseToast"></button>
           </div>
           <div class="toast-body">
             {{ store.toast.body }}

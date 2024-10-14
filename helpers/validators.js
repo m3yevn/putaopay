@@ -1,4 +1,7 @@
-import { REQUIRED_FIELDS_PAYMENT, CARD_TYPE_LENGTH } from "../constants/index.js";
+import {
+  REQUIRED_FIELDS_PAYMENT,
+  CARD_TYPE_LENGTH,
+} from "../constants/index.js";
 
 export const paymentParamsValidator = (req, res, next) => {
   const missingFields = REQUIRED_FIELDS_PAYMENT.filter(
@@ -16,8 +19,9 @@ export const paymentParamsValidator = (req, res, next) => {
 
 export const paymentFormatValidator = (req, res, next) => {
   const { cardType, cardNumber } = req.body;
+  const cleanCardNumber = cardNumber.replace(/\s/g, "");
   const lengthOfType = CARD_TYPE_LENGTH[cardType];
-  if (cardNumber.toString().length !== lengthOfType.length) {
+  if (cleanCardNumber.toString().length !== lengthOfType.length) {
     throw {
       status: 406,
       title: "NOT ACCEPTABLE",
