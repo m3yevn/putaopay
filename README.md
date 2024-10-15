@@ -15,14 +15,17 @@
 - Execute `npm run start` on terminal for running on node without watching
 
 
-
 ## ⭐ Public Url
 
-N.A
+https://putaopay.vercel.app
 
 ## 📚 Tech Stack
 
-N.A
+ - express
+ - braintree
+ - paypal
+ - petite-vue
+
 
 ## 📸 Screenshots
 

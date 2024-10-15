@@ -47,7 +47,12 @@
 	},
 	"funFacts": [],
 	"badges": [],
-	"techStacks": [],
-	"publicUrl": "",
+	"techStacks": [
+		"express",
+		"braintree",
+		"paypal",
+		"petite-vue"
+	],
+	"publicUrl": "https://putaopay.vercel.app",
 	"screenshots": []
 }
