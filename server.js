@@ -13,6 +13,9 @@ export function startServer({ port }) {
     braintreeService.createGateway();
 
     app.use("/", express.static("public"));
+    app.get("/", (req, res) => {
+      res.sendFile("index.html", { root: path.join(__dirname, "public") });
+    });
     app.use("/api", bodyParser.json());
     app.use(
       "/api",
