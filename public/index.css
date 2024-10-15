@@ -130,3 +130,9 @@ input.is-invalid:focus {
 .container .row.g-2 {
     width: 700px;
 }
+
+@media (max-width: 768px) {
+    .container .row.g-2 {
+        width: unset;
+    }
+}
