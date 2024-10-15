@@ -37,6 +37,16 @@ export const initialStore = {
     info: "",
     body: "",
   },
+  invoice: {
+    amount: "",
+    referenceNumber: "",
+    externalId: "",
+    paymentTime: "",
+    payVia: "",
+    paymentType: "",
+    senderName: "",
+    isVisible: false,
+  },
   form: {
     price: "",
     name: "",
@@ -55,7 +65,10 @@ export const initialStore = {
           ? this.form.cardNumber.length === 17
           : this.form.cardNumber.length === 19,
       cardExpiry: this.form.cardExpiry.length === 7,
-      cardCVV: this.form.cardCVV.length === 3,
+      cardCVV:
+        this.form.cardType === "AMEX"
+          ? this.form.cardCVV.length === 3 || this.form.cardCVV.length === 4
+          : this.form.cardCVV.length === 3,
     };
   },
   get $validations() {

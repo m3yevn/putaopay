@@ -74,9 +74,18 @@ class PaypalService {
       });
       const response = await result.json();
       if (response.status === "COMPLETED") {
-        return response;
+        const capture = response?.purchase_units?.[0]?.payments?.captures?.[0];
+        const amount = `${capture?.amount?.currency_code} ${capture?.amount?.value}`;
+        return {
+          referenceId: v4(),
+          externalId: response.id,
+          payVia: "Paypal",
+          serviceResponse: response,
+          amount
+        };
+      } else {
+        throw new Error(response.details[0].description);
       }
-      throw new Error("Processing payment is failed.");
     } catch (ex) {
       console.error(ex);
       throw {

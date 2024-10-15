@@ -19,9 +19,9 @@ export const paymentParamsValidator = (req, res, next) => {
 
 export const paymentFormatValidator = (req, res, next) => {
   const { cardType, cardNumber } = req.body;
-  const cleanCardNumber = cardNumber.replace(/\s/g, "");
+  const cleanCardNumber = cardNumber.toString().replace(/\s/g, "");
   const lengthOfType = CARD_TYPE_LENGTH[cardType];
-  if (cleanCardNumber.toString().length !== lengthOfType.length) {
+  if (cleanCardNumber.length !== lengthOfType.length) {
     throw {
       status: 406,
       title: "NOT ACCEPTABLE",
@@ -32,12 +32,22 @@ export const paymentFormatValidator = (req, res, next) => {
   next();
 };
 
-export const amexValidator = (currency, type) => {
+export const amexValidator = (currency, type, cvv) => {
   if (currency !== "USD" && type === "AMEX") {
     throw {
       status: 406,
       title: "NOT ACCEPTABLE",
       message: `Unable to use AMEX card with non-USD currency.`,
+    };
+  }
+  if (
+    type === "AMEX" &&
+    (cvv.toString().length < 3)
+  ) {
+    throw {
+      status: 406,
+      title: "NOT ACCEPTABLE",
+      message: `Unable to use AMEX card with invalid security code`,
     };
   }
 };

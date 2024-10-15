@@ -16,11 +16,22 @@ class CorePaymentService {
   }
 
   async makePayment({ name, price, currency, creditCard }) {
-    const { cardType } = creditCard;
-    amexValidator(currency, cardType);
+    const { cardType, cardCVV } = creditCard;
+    amexValidator(currency, cardType, cardCVV);
     const serviceHandler = this.getPaymentService(currency, cardType);
-    const result = await serviceHandler(price, currency, creditCard);
-    return result;
+    const { serviceResponse, ...result } = await serviceHandler(
+      price,
+      currency,
+      creditCard
+    );
+    const response = {
+      ...result,
+      name,
+      cardType,
+      createdAt: new Date(),
+    };
+
+    return { result: response, dbPayload: { ...response, ...result } };
   }
 }
 

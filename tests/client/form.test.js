@@ -1,7 +1,7 @@
 import formHandler from "../../public/modules/form";
 import { initialStore } from "../../public/modules/store";
 import { jest } from "@jest/globals";
-import { invalidNumberLengthForm, validForm } from "./data";
+import { invalidNumberLengthForm, invalidAmexCvvForm, validForm } from "./data";
 
 describe("Form function validation", () => {
   let store = initialStore;
@@ -34,6 +34,18 @@ describe("Form function validation", () => {
     expect(console.error.mock.calls[1][0]).toBe("Invalid form");
   });
 
+  it("should not trigger payment API if CVV formats is invalid for AMEX card", () => {
+    mockRefs.formRef.checkValidity = () => {
+      return true;
+    };
+    store.form = invalidAmexCvvForm;
+    const context = { store, $refs: mockRefs };
+    const handleSubmitFormWithContext =
+      formHandler.handleSubmitForm.bind(context);
+    handleSubmitFormWithContext();
+    expect(console.error.mock.calls[2][0]).toBe("Invalid form");
+  });
+
   it("should trigger payment API and not invalidate form if all formats on form is valid and HTML form is valid", () => {
     mockRefs.formRef.checkValidity = () => {
       return true;
@@ -44,7 +56,7 @@ describe("Form function validation", () => {
     const handleSubmitFormWithContext =
       formHandler.handleSubmitForm.bind(context);
     handleSubmitFormWithContext();
-    expect(console.error.mock.calls[2]).toBeFalsy();
+    expect(console.error.mock.calls[3]).toBeFalsy();
     expect(sendPaymentRequest).toHaveBeenCalledWith(store.form);
   });
 });

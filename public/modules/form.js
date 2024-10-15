@@ -16,19 +16,20 @@ export default {
         return;
       }
       const response = await this.sendPaymentRequest(this.store.form);
-      if (response) {
+      if (response?.success) {
         this.store.toast = {
           header: "Result",
-          info: new Date().toLocaleTimeString(),
+          info: new Date().toLocaleString(),
           body: "Sending payment is successful.",
         };
+        this.handleInvoice(response.result);
         this.$refs.toastRef.classList.add("text-bg-success");
         this.$refs.toastRef.classList.remove("text-bg-danger");
       } else {
         this.store.toast = {
           header: "Result",
-          info: new Date().toLocaleTimeString(),
-          body: "Sending payment is failed.",
+          info: new Date().toLocaleString(),
+          body: response?.message || "Sending payment is failed.",
         };
         this.$refs.toastRef.classList.add("text-bg-danger");
         this.$refs.toastRef.classList.remove("text-bg-success");
@@ -51,6 +52,41 @@ export default {
       body: "",
     };
   },
+  handleInvoice(result) {
+    this.store.invoice = {
+      amount: result.amount,
+      referenceNumber: result.referenceId,
+      externalId: result.externalId,
+      paymentTime: new Date(result.createdAt).toLocaleString(),
+      payVia: result.payVia,
+      paymentType: `${result.cardType} CARD`,
+      senderName: result.name,
+      isVisible: true,
+    };
+  },
+  handleCloseInvoice() {
+    this.store.form = {
+      price: "",
+      name: "",
+      currency: "USD",
+      cardHolder: "",
+      cardNumber: "",
+      cardType: "",
+      cardExpiry: "",
+      cardCVV: "",
+      isValid: true,
+    };
+    this.store.invoice = {
+      amount: "",
+      referenceNumber: "",
+      externalId: "",
+      paymentTime: "",
+      payVia: "",
+      paymentType: "",
+      senderName: "",
+      isVisible: false,
+    };
+  },
   async sendPaymentRequest(payload) {
     try {
       const result = await fetch("/api/payment", {
@@ -61,9 +97,7 @@ export default {
         },
       });
       const response = await result.json();
-      if (response.success) {
-        return response;
-      }
+      return response;
     } catch (ex) {
       console.error(ex);
     }

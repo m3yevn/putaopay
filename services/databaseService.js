@@ -13,9 +13,19 @@ class DatabaseService {
           deprecationErrors: true,
         },
       });
+      this.db = this.client.db(process.env.DATABASE_NAME);
       console.log("Database connection is established.");
     } catch (ex) {
       console.error("Database connection is failed.", ex);
+    }
+  }
+
+  async createOrder(transaction) {
+    try {
+      await this.db.collection("orders").insertOne(transaction);
+      console.log(`Transaction ${transaction.referenceId} is saved.`);
+    } catch (ex) {
+      console.error("Saving order transaction is failed.", ex);
     }
   }
 }
