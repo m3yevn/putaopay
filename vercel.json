@@ -1,15 +1,25 @@
 {
+  "name": "putaopay",
   "version": 2,
+  "public": true,
   "builds": [
     {
-      "src": "*.js",
+      "src": "main.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/"
+      "src": "/((?!.*\\.\\w+$).*)",
+      "dest": "/main.js"
+    },
+    {
+      "src": "/(.+\\.[a-z]+)$",
+      "dest": "/public/$1"
     }
   ]
 }
